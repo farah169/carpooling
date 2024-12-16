@@ -23,7 +23,7 @@ public class ReservationController {
     public String getAllReservations(Model model) {
         List<Reservation> reservations = reservationService.getAllReservations();
         model.addAttribute("reservations", reservations);
-        return "reservation/list"; // Refers to the Thymeleaf template: src/main/resources/templates/reservation/list.html
+        return "reservations"; // Refers to the Thymeleaf template: src/main/resources/templates/reservation/list.html
     }
 
     // Display a single reservation by ID
@@ -32,7 +32,7 @@ public class ReservationController {
         Reservation reservation = reservationService.getReservationById(id);
         if (reservation != null) {
             model.addAttribute("reservation", reservation);
-            return "reservation/detail"; // Refers to: src/main/resources/templates/reservation/detail.html
+            return "reservation-details"; // Refers to: src/main/resources/templates/reservation/detail.html
         } else {
             return "error/404"; // Refers to an error page
         }
@@ -43,7 +43,7 @@ public class ReservationController {
     public String getReservationsByPassenger(@PathVariable Long passengerId, Model model) {
         List<Reservation> reservations = reservationService.getReservationsByPassengerId(passengerId);
         model.addAttribute("reservations", reservations);
-        return "reservation/passenger-list";
+        return "reservation/passengers";
     }
 
     // Display reservations by ride
@@ -51,14 +51,14 @@ public class ReservationController {
     public String getReservationsByRide(@PathVariable Long rideId, Model model) {
         List<Reservation> reservations = reservationService.getReservationsByRideId(rideId);
         model.addAttribute("reservations", reservations);
-        return "reservation/ride-list";
+        return "reservation/rides";
     }
 
     // Show form for creating a new reservation
-    @GetMapping("/new")
+    @GetMapping("/add")
     public String showCreateForm(Model model) {
         model.addAttribute("reservation", new Reservation());
-        return "reservation/create"; // Refers to: src/main/resources/templates/reservation/create.html
+        return "add-reservation"; // Refers to: src/main/resources/templates/reservation/create.html
     }
 
     // Handle form submission for creating a new reservation
@@ -74,7 +74,7 @@ public class ReservationController {
 
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
-            return "reservation/create"; // Return to the form with error
+            return "reservation/add"; // Return to the form with error
         }
 
         // Save the reservation

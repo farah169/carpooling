@@ -1,5 +1,6 @@
 package com.project.Covoiturage.services;
 
+import com.project.Covoiturage.entity.Driver;
 import com.project.Covoiturage.entity.Ride;
 import com.project.Covoiturage.repository.RideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,11 @@ public class RideService {
             return false; // Ride not found
         }
     }
+    public Ride updateRide(Ride ride) {
+        if (!rideRepository.existsById(ride.getId())) {
+            throw new RuntimeException("Ride not found with id: " + ride.getId());
+        }
 
+        return rideRepository.save(ride);
+    }
 }
