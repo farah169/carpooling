@@ -23,6 +23,8 @@ public class RideController {
         return "rides"; // Corresponds to rides.html
     }
 
+
+
     // Display the form to add a ride
     @GetMapping("/add")
     public String addRideForm(Model model) {
