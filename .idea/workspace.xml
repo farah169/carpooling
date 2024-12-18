@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc79b720-72cc-4109-bfb2-d27927206aa1" name="Changes" comment="dernier">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Covoiturage/src/main/resources/templates/drivers.html" beforeDir="false" afterPath="$PROJECT_DIR$/Covoiturage/src/main/resources/templates/drivers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Covoiturage/src/main/resources/templates/passengers.html" beforeDir="false" afterPath="$PROJECT_DIR$/Covoiturage/src/main/resources/templates/passengers.html" afterDir="false" />
-    </list>
+    <list default="true" id="cc79b720-72cc-4109-bfb2-d27927206aa1" name="Changes" comment="dernier" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +52,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -90,7 +86,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734517199617</updated>
-      <workItem from="1734517200686" duration="19424000" />
+      <workItem from="1734517200686" duration="19807000" />
     </task>
     <task id="LOCAL-00001" summary="dernier">
       <option name="closed" value="true" />
@@ -100,7 +96,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734541924837</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="dernier">
+      <option name="closed" value="true" />
+      <created>1734548277436</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1734548277436</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
