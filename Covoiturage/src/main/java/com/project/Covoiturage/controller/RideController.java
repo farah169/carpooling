@@ -16,59 +16,56 @@ public class RideController {
     @Autowired
     private RideService rideService;
 
-    // Display all rides
+    // Display the list of rides
     @GetMapping
-    public String listRides(Model model) {
-        List<Ride> rides = rideService.getAllRides();
-        model.addAttribute("rides", rides);
-        return "rides/list"; // Thymeleaf template: src/main/resources/templates/rides/list.html
+    public String getAllRides(Model model) {
+        model.addAttribute("rides", rideService.getAllRides());
+        return "rides"; // Corresponds to rides.html
     }
 
-    // Display a single ride by ID
-    @GetMapping("/{id}")
-    public String getRideById(@PathVariable Long id, Model model) {
-        Ride ride = rideService.getRideById(id);
-        if (ride != null) {
-            model.addAttribute("ride", ride);
-            return "rides/detail"; // Thymeleaf template: src/main/resources/templates/rides/detail.html
-        } else {
-            model.addAttribute("errorMessage", "Ride not found.");
-            return "error/404"; // Error page template
-        }
-    }
 
-    // Search rides by departure and destination
-    @GetMapping("/search")
-    public String searchRide(@RequestParam String departure, @RequestParam String destination, Model model) {
-        List<Ride> rides = rideService.searchRide(departure, destination);
-        model.addAttribute("rides", rides);
-        model.addAttribute("departure", departure);
-        model.addAttribute("destination", destination);
-        return "rides/search"; // Thymeleaf template: src/main/resources/templates/rides/search.html
-    }
 
-    // Show form for creating a new ride
-    @GetMapping("/new")
-    public String showCreateForm(Model model) {
+    // Display the form to add a ride
+    @GetMapping("/add")
+    public String addRideForm(Model model) {
         model.addAttribute("ride", new Ride());
-        return "rides/create"; // Thymeleaf template: src/main/resources/templates/rides/create.html
+        return "add-ride"; // Corresponds to add-ride.html
     }
 
-    // Handle form submission for creating a new ride
-    @PostMapping
-    public String createRide(@ModelAttribute Ride ride, Model model) {
+    // Save a new ride
+    @PostMapping("/add")
+    public String createRide(@ModelAttribute Ride ride) {
         rideService.saveRide(ride);
-        return "redirect:/rides"; // Redirect to the list page
+        return "redirect:/rides";
     }
 
-    // Handle ride deletion
+    // Delete a ride
     @GetMapping("/delete/{id}")
-    public String deleteRide(@PathVariable Long id, Model model) {
-        boolean deleted = rideService.deleteRide(id);
-        if (!deleted) {
-            model.addAttribute("errorMessage", "Unable to delete ride. Ride not found.");
-            return "error/404"; // Error page template
-        }
-        return "redirect:/rides"; // Redirect to the list page
+    public String deleteRide(@PathVariable Long id) {
+        rideService.deleteRide(id);
+        return "redirect:/rides";
+    }
+
+    // Display ride details
+    @GetMapping("/{id}")
+    public String getRide(@PathVariable Long id, Model model) {
+        Ride ride = rideService.getRideById(id);
+        model.addAttribute("ride", ride);
+        return "ride-details"; // Corresponds to ride-details.html
+    }
+
+    // Display the form to edit a ride
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Ride ride = rideService.getRideById(id); // Fetch the ride by ID
+        model.addAttribute("ride", ride);      // Pass the ride to the model
+        return "edit-ride";                   // Render the edit-ride.html template
+    }
+
+    // Handle the update of a ride
+    @PostMapping("/edit")
+    public String updateRide(@ModelAttribute Ride ride) {
+        rideService.updateRide(ride);          // Save the updated ride
+        return "redirect:/rides";            // Redirect to the list of rides
     }
 }

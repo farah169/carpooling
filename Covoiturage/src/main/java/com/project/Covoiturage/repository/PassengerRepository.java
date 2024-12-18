@@ -4,4 +4,5 @@ import com.project.Covoiturage.entity.Passenger;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
+    Passenger findByEmailAndName(String email, String name);
 }

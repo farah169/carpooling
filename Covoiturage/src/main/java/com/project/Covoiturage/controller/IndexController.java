@@ -12,6 +12,7 @@ public class IndexController {
     public String home(Model model) {
         model.addAttribute("pageTitle", "Home Page");
         model.addAttribute("content", "index");
-        return "layout";
+        return "Home";
     }
+
 }
