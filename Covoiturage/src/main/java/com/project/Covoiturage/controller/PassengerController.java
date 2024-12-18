@@ -2,7 +2,9 @@ package com.project.Covoiturage.controller;
 
 
 import com.project.Covoiturage.entity.Passenger;
+import com.project.Covoiturage.repository.PassengerRepository;
 import com.project.Covoiturage.services.PassengerService;
+import com.project.Covoiturage.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,14 +31,6 @@ public class PassengerController {
     }
 
 
-
-
-
-   /* @GetMapping
-    public String getAllPassengers(Model model) {
-        model.addAttribute("passengers", passengerService.getAllPassengers());
-        return "passengers"; // Correspond à passengers.html
-    }*/
 
     // Afficher le formulaire pour ajouter un passager
     @GetMapping("/add")

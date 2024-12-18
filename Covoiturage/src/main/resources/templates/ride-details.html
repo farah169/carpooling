@@ -58,14 +58,15 @@
                 <strong>Price:</strong> <span th:text="${ride.price}">$Price</span>
             </p>
             <p class="card-text">
-                <strong>Driver:</strong> <span th:text="${ride.driver.name}">Driver Name</span>
+                <strong>Driver:</strong> <span th:text="${ride.driver != null ? ride.driver.name : 'No driver available'}">Driver Name</span>
             </p>
+
 
 
             <p class="card-text">
                 <strong>Ride ID:</strong> <span th:text="${ride.id}">1</span>
             </p>
-            <a href="/rides" class="btn btn-secondary">Back to Rides</a>
+            <a href="/rides" class="btn btn-secondary">Back to List</a>
         </div>
     </div>
 </div>

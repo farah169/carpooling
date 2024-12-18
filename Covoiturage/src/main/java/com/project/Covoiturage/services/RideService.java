@@ -21,7 +21,7 @@ public class RideService {
     }
 
     public Ride getRideById(Long id) {
-        return rideRepository.findById(id).get();
+        return rideRepository.findById(id).orElse(null);
     }
 
 

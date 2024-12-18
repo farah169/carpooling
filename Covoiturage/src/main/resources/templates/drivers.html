@@ -59,8 +59,8 @@
       <td th:text="${driver.id}"></td>
       <td th:text="${driver.name}"></td>
       <td th:text="${driver.email}"></td>
-      <!--<td th:text="${driver.ride}"></td>
-      <td th:text="${driver.review}"></td>-->
+      <td th:text="${driver.ride}"></td>
+      <td th:text="${driver.review}"></td>
       <td>
         <a th:href="@{/drivers/{id}(id=${driver.id})}" class="btn btn-sm btn-info">View</a>
         <a th:href="@{/drivers/edit/{id}(id=${driver.id})}" class="btn btn-sm btn-warning">Edit</a>

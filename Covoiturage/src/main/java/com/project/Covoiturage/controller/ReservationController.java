@@ -1,7 +1,11 @@
 package com.project.Covoiturage.controller;
 
+import com.project.Covoiturage.entity.Passenger;
 import com.project.Covoiturage.entity.Reservation;
+import com.project.Covoiturage.entity.Ride;
+import com.project.Covoiturage.services.PassengerService;
 import com.project.Covoiturage.services.ReservationService;
+import com.project.Covoiturage.services.RideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,12 @@ public class ReservationController {
 
     @Autowired
     private ReservationService reservationService;
+    @Autowired
+    private PassengerService passengerService;
+
+    @Autowired
+    private RideService rideService;
+
 
     // Display all reservations
     @GetMapping
@@ -36,6 +46,15 @@ public class ReservationController {
         } else {
             return "error/404"; // Refers to an error page
         }
+    }
+    @GetMapping("/add_Reservation")
+    public String addReservation(Model model) {
+        List<Passenger> passengers = passengerService.getAllPassengers();
+        model.addAttribute("passengers", passengers);
+        List<Ride> rides = rideService.getAllRides();
+        model.addAttribute("rides", rides);
+        model.addAttribute("reservation", new Reservation());
+        return "add_Reservation";
     }
 
     // Display reservations by passenger
@@ -58,11 +77,13 @@ public class ReservationController {
     @GetMapping("/add")
     public String showCreateForm(Model model) {
         model.addAttribute("reservation", new Reservation());
-        return "add-reservation"; // Refers to: src/main/resources/templates/reservation/create.html
+        model.addAttribute("passengers", passengerService.getAllPassengers());  // Pass passengers to the model
+        model.addAttribute("rides", rideService.getAllRides());  // Pass rides to the model
+        return "add_Reservation";
     }
 
     // Handle form submission for creating a new reservation
-    @PostMapping
+    @PostMapping("/add")
     public String createReservation(@ModelAttribute Reservation reservation, Model model) {
         // Manual validation
         String errorMessage = null;
@@ -74,7 +95,7 @@ public class ReservationController {
 
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
-            return "reservation/add"; // Return to the form with error
+            return "add_Reservation"; // Return to the form with error
         }
 
         // Save the reservation

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/rides")
 public class RideController {
@@ -23,9 +21,22 @@ public class RideController {
         return "rides"; // Corresponds to rides.html
     }
 
+    // Display ride details by ID
+    @GetMapping("/{id}")
+    public String getRide(@PathVariable Long id, Model model) {
+        Ride ride = rideService.getRideById(id);
 
+        // If the ride is not found, display an error message
+        if (ride == null) {
+            model.addAttribute("error", "Ride not found.");
+            return "error"; // Corresponds to error.html
+        }
 
-    // Display the form to add a ride
+        model.addAttribute("ride", ride);
+        return "ride-details"; // Corresponds to ride-details.html
+    }
+
+    // Display the form to add a new ride
     @GetMapping("/add")
     public String addRideForm(Model model) {
         model.addAttribute("ride", new Ride());
@@ -36,36 +47,35 @@ public class RideController {
     @PostMapping("/add")
     public String createRide(@ModelAttribute Ride ride) {
         rideService.saveRide(ride);
-        return "redirect:/rides";
+        return "redirect:/rides"; // Redirect to the rides list
     }
 
-    // Delete a ride
+    // Delete a ride by ID
     @GetMapping("/delete/{id}")
     public String deleteRide(@PathVariable Long id) {
         rideService.deleteRide(id);
-        return "redirect:/rides";
+        return "redirect:/rides"; // Redirect to the rides list
     }
 
-    // Display ride details
-    @GetMapping("/{id}")
-    public String getRide(@PathVariable Long id, Model model) {
-        Ride ride = rideService.getRideById(id);
-        model.addAttribute("ride", ride);
-        return "ride-details"; // Corresponds to ride-details.html
-    }
-
-    // Display the form to edit a ride
+    // Display the form to edit an existing ride
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        Ride ride = rideService.getRideById(id); // Fetch the ride by ID
-        model.addAttribute("ride", ride);      // Pass the ride to the model
-        return "edit-ride";                   // Render the edit-ride.html template
+        Ride ride = rideService.getRideById(id);
+
+        // If the ride is not found, return an error
+        if (ride == null) {
+            model.addAttribute("error", "Ride not found.");
+            return "error"; // Corresponds to error.html
+        }
+
+        model.addAttribute("ride", ride);
+        return "edit-ride"; // Corresponds to edit-ride.html
     }
 
     // Handle the update of a ride
     @PostMapping("/edit")
     public String updateRide(@ModelAttribute Ride ride) {
-        rideService.updateRide(ride);          // Save the updated ride
-        return "redirect:/rides";            // Redirect to the list of rides
+        rideService.updateRide(ride);
+        return "redirect:/rides"; // Redirect to the rides list after updating
     }
 }

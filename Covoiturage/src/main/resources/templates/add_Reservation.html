@@ -38,31 +38,49 @@
 
 <div class="container mt-5">
     <h2>Add New Reservation</h2>
-    <form th:action="@{/reservations}" th:object="${reservation}" method="post" class="mt-3">
+    <form th:action="@{/reservations/add}" th:object="${reservation}" method="post" class="mt-3">
+
+        <!-- Display error message if any -->
+        <div th:if="${errorMessage}" class="alert alert-danger">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <!-- Passenger Selection -->
         <div class="mb-3">
             <label for="passenger" class="form-label">Passenger</label>
-            <select id="passenger" name="passenger.id" class="form-control" th:field="*{passenger.id}" required>
+            <select id="passenger" th:field="*{passenger}" class="form-control" required>
+                <option value="" selected disabled>-- Select a Passenger --</option>
                 <option th:each="passenger : ${passengers}" th:value="${passenger.id}" th:text="${passenger.name}">Passenger</option>
             </select>
         </div>
+
+        <!-- Ride Selection -->
         <div class="mb-3">
             <label for="ride" class="form-label">Ride</label>
-            <select id="ride" name="ride.id" class="form-control" th:field="*{ride.id}" required>
-                <option th:each="ride : ${rides}" th:value="${ride.id}" th:text="${ride.details}">Ride</option>
+            <select id="ride" th:field="*{ride}" class="form-control" required>
+                <option value="" selected disabled>-- Select a Ride --</option>
+                <option th:each="ride : ${rides}" th:value="${ride.id}" th:text="${ride.destination}">Ride</option>
             </select>
         </div>
+
+        <!-- Reserved Seats -->
         <div class="mb-3">
             <label for="reservedSeats" class="form-label">Reserved Seats</label>
-            <input type="number" id="reservedSeats" name="reservedSeats" class="form-control" th:field="*{reservedSeats}" required>
+            <input type="number" id="reservedSeats" th:field="*{reservedSeats}" class="form-control" required>
         </div>
+
+        <!-- Reservation Date -->
         <div class="mb-3">
             <label for="reservationDate" class="form-label">Reservation Date</label>
-            <input type="datetime-local" id="reservationDate" name="reservationDate" class="form-control" th:field="*{reservationDate}" required>
+            <input type="datetime-local" id="reservationDate" th:field="*{reservationDate}" class="form-control" required>
         </div>
+
+        <!-- Details -->
         <div class="mb-3">
             <label for="details" class="form-label">Details</label>
-            <textarea id="details" name="details" class="form-control" th:field="*{details}" rows="3"></textarea>
+            <textarea id="details" th:field="*{details}" class="form-control" rows="3"></textarea>
         </div>
+
         <button type="submit" class="btn btn-primary">Add Reservation</button>
     </form>
 </div>
